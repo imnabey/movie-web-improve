@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FC } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { SkeletonTheme } from 'react-loading-skeleton';
+// import './App.css';
+import './styles/injectGlobal';
+import 'react-loading-skeleton/dist/skeleton.css';
 
-function App() {
+import { INavbar } from '../types';
+import MovieListContext from './contexts/MovieList';
+import Detail from './pages/Detail';
+import MyList from './pages/MyList';
+import Home from './pages/Homepage';
+import Layout from './components/Layout';
+
+export const App: FC<INavbar> = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <SkeletonTheme baseColor="#202020" highlightColor="#444">
+      <BrowserRouter>
+        <MovieListContext>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/detail/:id" element={<Detail />} />
+              <Route path="/my-list" element={<MyList />} />
+            </Routes>
+          </Layout>
+        </MovieListContext>
+      </BrowserRouter>
+    </SkeletonTheme>
+
   );
-}
+};
 
 export default App;
