@@ -1,17 +1,4 @@
-// declare module '*module.css' {
-//   const styles: {
-//     [className: string]: string;
-//   };
-//   export default styles;
-// }
 
-// export interface ICard {
-//   name: string,
-//   imgSrc: string,
-//   price: string,
-//   brand: string,
-//   rating: number
-// }
 
 export interface IDetail {
   // onChange: (e: any) => void
@@ -32,7 +19,9 @@ export interface INavbar {
 
 export interface ILandCard {
   pic: string,
-  title: string
+  title: string,
+  type: string,
+  year: string,
   // isOpen: boolean,
   // onChange: (e: any) => void
 }
@@ -42,8 +31,6 @@ export interface IPortCard {
   // onChange: (e: any) => void
 }
 
-
-
 export interface INavbarx {
   // isOpen: boolean,
   onChange: (e: any) => void
@@ -52,7 +39,3 @@ export interface INavbarx {
 export interface ILayout {
   children?: ReactNode
 }
-// export interface ICarousel {
-//   imgSrc: { uuid: number; urlImg: StaticImageData; urlLink: string }[];
-//   className: string;
-// }

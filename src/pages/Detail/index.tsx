@@ -31,11 +31,20 @@ export const Detail: FC<IDetail> = () => {
   }, []);
 
   useEffect(() => {
+    const getImdbId = localStorage.getItem('imdbId') ?? '';
     const getImdbUpdate = localStorage.getItem('imdbIdUpdate') ?? '';
     setImdbIdLocal(getImdbUpdate.split(' ') || []);
 
-    if (getImdbUpdate.split(' ').includes(getIdDetail)) {
-      setSaveToggle(true);
+    if (getImdbUpdate) {
+      if (getImdbUpdate.split(' ').includes(getIdDetail)) {
+        setSaveToggle(true);
+      }
+    } else if (getImdbId) {
+      if (getImdbId.split(' ').includes(getIdDetail)) {
+        setSaveToggle(true);
+      }
+    } else {
+      setSaveToggle(false);
     }
   }, []);
 
@@ -93,7 +102,7 @@ export const Detail: FC<IDetail> = () => {
               <h1>{isLoading ? <Skeleton width={600} /> : movieContext?.movieDetail.Title}</h1>
 
               <div css={detailCss.detailShare}>
-                {isLoading ? <Skeleton height={24} width={24} /> : <button css={detailCss.detailSave} onClick={handleSave}>{saveToggle ? <Bookmark size='30' /> : <BookmarkBorder size='24' />}</button>}
+                {isLoading ? <Skeleton height={24} width={24} /> : <button css={detailCss.detailSave} onClick={handleSave}>{saveToggle ? <Bookmark size='30' /> : <BookmarkBorder size='30' />}</button>}
                 {isLoading ? <Skeleton height={24} width={24} /> : <Share size='30' />}
               </div>
 

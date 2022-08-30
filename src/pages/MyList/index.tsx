@@ -45,17 +45,16 @@ export const MyList: FC<INavbar> = () => {
         <h1>My List</h1>
         <GridRow wrap='wrap'>
           {
-            !isEmpty(backupMovie) ? backupMovie.map((movieItem: { Title: string, imdbID: string, Poster: string }) => (
+            !isEmpty(backupMovie) ? backupMovie.map((movieItem: { Title: string, imdbID: string, Poster: string, Type: string, Year: string }) => (
               <GridColumn width={[12, 2]} p={['xl', 'm']} key={movieItem.imdbID}>
                 <Link to={`/detail/${movieItem.imdbID}`}>
-                  <LandscapeCard pic={movieItem.Poster.replace('jpg', 'webp')} title={movieItem.Title} />
+                  <LandscapeCard pic={movieItem.Poster.replace('jpg', 'webp')} title={movieItem.Title} type={movieItem.Type} year={''} />
                 </Link>
               </GridColumn>
             )) :
               <div>
                 Ups Kosong!
               </div>
-
           }
 
           {isLoading && (

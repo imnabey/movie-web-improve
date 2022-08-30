@@ -93,10 +93,10 @@ export const Homepage: FC<INavbar> = () => {
         <h1>All Movies</h1>
         <GridRow wrap='wrap'>
           {
-            !isEmpty(backupMovie) && backupMovie.map((movieItem: { Title: string, imdbID: string, Poster: string }) => (
+            !isEmpty(backupMovie) && backupMovie.map((movieItem: { Title: string, imdbID: string, Poster: string, Type: string, Year: string }) => (
               <GridColumn width={[12, 2]} p={['xl', 'm']} key={movieItem.imdbID}>
                 <Link to={`/detail/${movieItem.imdbID}`}>
-                  <LandscapeCard pic={movieItem.Poster.replace('jpg', 'webp')} title={movieItem.Title} />
+                  <LandscapeCard pic={movieItem.Poster.replace('jpg', 'webp')} title={movieItem.Title} type={movieItem.Type} year={movieItem.Year} />
                 </Link>
               </GridColumn>
             ))
