@@ -11,34 +11,37 @@ export const Navbar: FC<INavbarx> = ({ onChange }) => {
   const [isNavExpanded, setIsNavExpanded] = useState(false);
 
   return (
-    <header css={utilsCss.container}>
-      <nav css={navbarCss.navbarWrapper}>
-        <Link to='/'>
-          Netflix
-        </Link>
-        <button
-          css={navbarCss.navbarBar}
-          onClick={() => {
-            setIsNavExpanded(!isNavExpanded);
-          }}
-        >
-          <Reorder />
-        </button>
+    <header css={navbarCss.navbarHeader}>
+      <div css={utilsCss.container}>
+        <nav css={navbarCss.navbarWrapper}>
+          <Link to='/' css={navbarCss.navbarLogo}>
+            Omdb
+          </Link>
+          <button
+            css={navbarCss.navbarBar}
+            onClick={() => {
+              setIsNavExpanded(!isNavExpanded);
+            }}
+          >
+            <Reorder size={30} />
+          </button>
 
-        <div
-          css={isNavExpanded ? navbarCss.navbarMenuExpand : navbarCss.navbarMenu}
-        >
-          <ul>
-            <li>
-              <a href='/'>Home</a>
-            </li>
-            <li>
-              <a href='/my-list'>My List</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header >
+          <div
+            css={isNavExpanded ? navbarCss.navbarMenuExpand : navbarCss.navbarMenu}
+          >
+            <ul>
+              <li>
+                <Link to='/'>Home</Link>
+              </li>
+              <li>
+                <Link to='/my-list'>My List</Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+    </header>
   );
 };
 

@@ -2,8 +2,11 @@
 import { FC } from 'react';
 
 import { ILayout } from '../../../types';
-import NavbarComponent from '../Navbar';
+
 import { layoutCss } from './styles';
+
+import NavbarComponent from '../Navbar';
+import FooterComponent from '../Footer';
 
 export const Layout: FC<ILayout> = ({ children }) => {
 
@@ -11,6 +14,7 @@ export const Layout: FC<ILayout> = ({ children }) => {
     <div css={layoutCss.wrapper}>
       <NavbarComponent onChange={(e) => 'hello'} />
       <main>{children}</main>
+      <FooterComponent onChange={(e) => 'hello'} />
     </div>
   );
 };

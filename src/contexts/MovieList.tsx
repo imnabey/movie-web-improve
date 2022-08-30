@@ -7,9 +7,10 @@ import UserRandomServices from '../services/api';
 interface MovieContextInterface {
   movieList: Array<{ Title: string, imdbID: string }>;
   getMovieData: (param: any) => Promise<void>;
-  movieDetail: { Title: string, Plot: string, Poster: string, imdbRating: string, Actors: string };
+  movieDetail: { Title: string, Plot: string, Poster: string, imdbRating: string, Actors: string, imdbVotes: string };
   setMovieDetail: any;
   totalPageList: string;
+
 }
 
 export const MovieListCtx = createContext<MovieContextInterface | null>(null);

@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { FC, useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { BookmarkBorder, Share } from '@emotion-icons/material';
+import { BookmarkBorder, Share, Bookmark } from '@emotion-icons/material';
 
 import { IDetail } from '../../../types';
 import { MovieListCtx } from '../../contexts/MovieList';
@@ -12,8 +12,10 @@ import Avatar from '../../assets/images/avatar.webp';
 import Skeleton from 'react-loading-skeleton';
 
 export const Detail: FC<IDetail> = () => {
-  const getIdDetail = useLocation().pathname.split('/').pop();
+  const getIdDetail = useLocation().pathname.split('/').pop() ?? '';
   const [isLoading, setIsLoading] = useState(false);
+  const [saveToggle, setSaveToggle] = useState(false);
+  const [imdbIdLocal, setImdbIdLocal] = useState(['']);
 
   const movieContext = useContext(MovieListCtx);
 
@@ -28,10 +30,50 @@ export const Detail: FC<IDetail> = () => {
     getMovieListData().catch(console.error);
   }, []);
 
+  useEffect(() => {
+    const getImdbUpdate = localStorage.getItem('imdbIdUpdate') ?? '';
+    setImdbIdLocal(getImdbUpdate.split(' ') || []);
+
+    if (getImdbUpdate.split(' ').includes(getIdDetail)) {
+      setSaveToggle(true);
+    }
+  }, []);
+
 
   const convertStringtoArr = (param: any) => {
     return param.split(', ');
   };
+
+  const handleSave = () => {
+    const getImdbId = localStorage.getItem('imdbId') ?? '';
+    const getImdbUpdate = localStorage.getItem('imdbIdUpdate') ?? '';
+    setSaveToggle(!saveToggle);
+
+    if (getImdbUpdate) {
+      localStorage.setItem('imdbIdUpdate', `${getImdbUpdate} ${getIdDetail}`);
+    } else if (getImdbId) {
+      localStorage.setItem('imdbIdUpdate', `${getImdbId} ${getIdDetail}`);
+    } else {
+      localStorage.setItem('imdbId', `${getIdDetail}`);
+    }
+
+    if (saveToggle) {
+      // remove
+      const arrayRemove = (arr: string[], value: string) => {
+        return arr.filter((ele: any) => {
+          return ele !== value;
+        });
+      };
+
+      const result = arrayRemove(imdbIdLocal, getIdDetail);
+      const resultToString = result.toString().replace(/,/g, ' ');
+
+      localStorage.setItem('imdbIdUpdate', resultToString);
+    }
+  };
+
+
+  console.log(imdbIdLocal.toString(), 'kkk');
 
   return (
     <div css={detailCss.detail} >
@@ -42,55 +84,64 @@ export const Detail: FC<IDetail> = () => {
             <GridColumn width={[12, 3]}>
               <div css={detailCss.detailItemleft}>
                 {isLoading ? <Skeleton height={400} width={250} /> : <img css={detailCss.detailMiniPoster} alt={movieContext?.movieDetail.Title} src={movieContext?.movieDetail.Poster && movieContext?.movieDetail.Poster} />}
+                <div css={utilsCss.flex}>
+                  <div css={detailCss.detailListItemVal}>{isLoading ? <Skeleton /> : movieContext?.movieDetail.imdbRating}</div><div >Ratings</div>
+                </div>
+                <div css={utilsCss.flex}>
+                  <div css={detailCss.detailListItemVal}>{isLoading ? <Skeleton /> : movieContext?.movieDetail.imdbVotes}</div><div >Votes</div>
+                </div>
+              </div>
+            </GridColumn>
+            <GridColumn width={[12, 6]} px={['xs', 'xl']}>
+              <h1>{isLoading ? <Skeleton width={600} /> : movieContext?.movieDetail.Title}</h1>
 
-                <div>{isLoading ? <Skeleton /> : movieContext?.movieDetail.imdbRating}</div>
+              <div css={detailCss.detailShare}>
+                {isLoading ? <Skeleton height={24} width={24} /> : <button css={detailCss.detailSave} onClick={handleSave}>{saveToggle ? <Bookmark size='30' /> : <BookmarkBorder size='24' />}</button>}
+                {isLoading ? <Skeleton height={24} width={24} /> : <Share size='30' />}
               </div>
 
-            </GridColumn>
-            <GridColumn width={[12, 6]} p={['xs', 's']}>
-              <h1>{isLoading ? <Skeleton width={600} /> : movieContext?.movieDetail.Title}</h1>
-              {isLoading ? <Skeleton height={24} width={24} /> : <BookmarkBorder size="24" />}
-              {isLoading ? <Skeleton height={24} width={24} /> : <Share size="24" />}
-              <div> {isLoading ? <Skeleton /> : movieContext?.movieDetail.Plot}</div>
-              <h3>{isLoading ? <Skeleton /> : 'Details'}</h3>
+              <div css={detailCss.detailDesc}> {isLoading ? <Skeleton /> : movieContext?.movieDetail.Plot}</div>
+              <h3 css={utilsCss.subTitle}>{isLoading ? <Skeleton /> : 'Details'}</h3>
 
-              <ul css={detailCss.detailList}>
+              <ul css={utilsCss.listUnstyled}>
                 <li css={detailCss.detailListItem}>
                   <GridRow wrap='wrap'>
-                    <GridColumn width={[12, 6]}>
-                      {isLoading ? <Skeleton /> : 'Genres'}
+                    <GridColumn width={[12, 4]}>
+                      <div css={detailCss.detailListItemTitle}>{isLoading ? <Skeleton /> : 'Genres'}</div>
                     </GridColumn>
-                    <GridColumn width={[12, 6]}>
+                    <GridColumn width={[12, 8]}>
                       {isLoading ? <Skeleton /> : movieContext?.movieDetail.Title}
                     </GridColumn>
                   </GridRow>
                 </li>
                 <li css={detailCss.detailListItem}>
                   <GridRow wrap='wrap'>
-                    <GridColumn width={[12, 6]}>
-                      {isLoading ? <Skeleton /> : 'Country of Region'}
+                    <GridColumn width={[12, 4]} >
+                      <div css={detailCss.detailListItemTitle}>
+                        {isLoading ? <Skeleton /> : 'Country of Region'}
+                      </div>
                     </GridColumn>
-                    <GridColumn width={[12, 6]}>
+                    <GridColumn width={[12, 8]}>
                       {isLoading ? <Skeleton /> : movieContext?.movieDetail.Title}
                     </GridColumn>
                   </GridRow>
                 </li>
                 <li css={detailCss.detailListItem}>
                   <GridRow wrap='wrap'>
-                    <GridColumn width={[12, 6]}>
-                      {isLoading ? <Skeleton /> : 'Runtime'}
+                    <GridColumn width={[12, 4]}>
+                      <div css={detailCss.detailListItemTitle}>{isLoading ? <Skeleton /> : 'Runtime'}</div>
                     </GridColumn>
-                    <GridColumn width={[12, 6]}>
+                    <GridColumn width={[12, 8]}>
                       {isLoading ? <Skeleton /> : movieContext?.movieDetail.Title}
                     </GridColumn>
                   </GridRow>
                 </li>
                 <li css={detailCss.detailListItem}>
                   <GridRow wrap='wrap'>
-                    <GridColumn width={[12, 6]}>
-                      {isLoading ? <Skeleton /> : 'Released'}
+                    <GridColumn width={[12, 4]}>
+                      <div css={detailCss.detailListItemTitle}> {isLoading ? <Skeleton /> : 'Released'}</div>
                     </GridColumn>
-                    <GridColumn width={[12, 6]}>
+                    <GridColumn width={[12, 8]}>
                       {isLoading ? <Skeleton /> : movieContext?.movieDetail.Title}
                     </GridColumn>
                   </GridRow>
@@ -99,12 +150,11 @@ export const Detail: FC<IDetail> = () => {
             </GridColumn>
 
             <GridColumn width={[12, 3]}>
-              <h3>{isLoading ? <Skeleton width={300} /> : 'Cast & Crew'}</h3>
+              <h3 css={utilsCss.subTitle}> {isLoading ? <Skeleton width={300} /> : 'Cast & Crew'}</h3>
               {movieContext?.movieDetail.Actors && convertStringtoArr(movieContext?.movieDetail.Actors).map((actor: string) => (
                 <div key={actor} css={detailCss.wrapAvatar}>
                   {isLoading ? <Skeleton circle height={60} width={60} /> : <img css={detailCss.avatarImg} src={Avatar} alt={actor} />}
-                  {isLoading ? <Skeleton width={100} height={30} /> : <div>{actor}</div>}
-
+                  {isLoading ? <Skeleton width={100} height={30} /> : <div css={detailCss.detailListItemTitle}>{actor}</div>}
                 </div>
               ))}
             </GridColumn>

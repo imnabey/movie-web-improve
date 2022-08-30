@@ -1,8 +1,7 @@
-// import axios from 'axios';
 import Axios, { AxiosInstance } from 'axios';
 
 export const http: AxiosInstance = Axios.create({
-  baseURL: 'http://www.omdbapi.com',
+  baseURL: 'https://www.omdbapi.com',
   headers: {
     'Content-type': 'application/json',
   },
