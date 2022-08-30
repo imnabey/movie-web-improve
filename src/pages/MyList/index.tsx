@@ -48,7 +48,7 @@ export const MyList: FC<INavbar> = () => {
             !isEmpty(backupMovie) ? backupMovie.map((movieItem: { Title: string, imdbID: string, Poster: string }) => (
               <GridColumn width={[12, 2]} p={['xl', 'm']} key={movieItem.imdbID}>
                 <Link to={`/detail/${movieItem.imdbID}`}>
-                  <LandscapeCard pic={movieItem.Poster} title={movieItem.Title} />
+                  <LandscapeCard pic={movieItem.Poster.replace('jpg', 'webp')} title={movieItem.Title} />
                 </Link>
               </GridColumn>
             )) :
