@@ -72,18 +72,15 @@ export const Detail: FC<IDetail> = () => {
     }
   };
 
-
-  console.log(imdbIdLocal.toString(), 'kkk');
-
   return (
     <div css={detailCss.detail} >
-      {isLoading ? <Skeleton height={600} /> : <img css={detailCss.detailPoster} alt={movieContext?.movieDetail.Title} src={movieContext?.movieDetail.Poster && movieContext?.movieDetail.Poster.replace('300', '2000')} />}
+      {isLoading ? <Skeleton height={600} /> : <img css={detailCss.detailPoster} alt={movieContext?.movieDetail.Title} src={movieContext?.movieDetail.Poster && movieContext?.movieDetail.Poster.replace('300', '2000').replace('jpg', 'webp')} />}
       <div css={utilsCss.container}>
         <div css={detailCss.detailItem}>
           <GridRow wrap='wrap'>
             <GridColumn width={[12, 3]}>
               <div css={detailCss.detailItemleft}>
-                {isLoading ? <Skeleton height={400} width={250} /> : <img css={detailCss.detailMiniPoster} alt={movieContext?.movieDetail.Title} src={movieContext?.movieDetail.Poster && movieContext?.movieDetail.Poster} />}
+                {isLoading ? <Skeleton height={400} width={250} /> : <img css={detailCss.detailMiniPoster} alt={movieContext?.movieDetail.Title} src={movieContext?.movieDetail.Poster && movieContext?.movieDetail.Poster.replace('jpg', 'webp')} />}
                 <div css={utilsCss.flex}>
                   <div css={detailCss.detailListItemVal}>{isLoading ? <Skeleton /> : movieContext?.movieDetail.imdbRating}</div><div >Ratings</div>
                 </div>

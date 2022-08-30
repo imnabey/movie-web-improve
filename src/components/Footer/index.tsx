@@ -1,7 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import { FC } from 'react';
-// import { Reorder } from '@emotion-icons/material';
-// import { Link } from 'react-router-dom';
 import { GridColumn, GridRow } from '../../styles/grid';
 import { Facebook, Mail } from '@emotion-icons/material';
 

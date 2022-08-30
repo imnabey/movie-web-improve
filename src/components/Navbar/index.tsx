@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { FC, useState } from 'react';
-import { Reorder } from '@emotion-icons/material';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import { INavbarx } from '../../../types';
@@ -8,8 +7,6 @@ import { utilsCss } from '../../styles/utils';
 import { navbarCss } from './styles';
 
 export const Navbar: FC<INavbarx> = ({ onChange }) => {
-  const [isNavExpanded, setIsNavExpanded] = useState(false);
-
   return (
     <header css={navbarCss.navbarHeader}>
       <div css={utilsCss.container}>
@@ -17,17 +14,9 @@ export const Navbar: FC<INavbarx> = ({ onChange }) => {
           <Link to='/' css={navbarCss.navbarLogo}>
             Omdb
           </Link>
-          <button
-            css={navbarCss.navbarBar}
-            onClick={() => {
-              setIsNavExpanded(!isNavExpanded);
-            }}
-          >
-            <Reorder size={30} />
-          </button>
 
           <div
-            css={isNavExpanded ? navbarCss.navbarMenuExpand : navbarCss.navbarMenu}
+            css={navbarCss.navbarMenu}
           >
             <ul>
               <li>
@@ -38,6 +27,7 @@ export const Navbar: FC<INavbarx> = ({ onChange }) => {
               </li>
             </ul>
           </div>
+
         </nav>
       </div>
 
