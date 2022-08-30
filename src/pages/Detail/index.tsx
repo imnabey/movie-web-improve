@@ -116,7 +116,7 @@ export const Detail: FC<IDetail> = () => {
                       <div css={detailCss.detailListItemTitle}>{isLoading ? <Skeleton /> : 'Genres'}</div>
                     </GridColumn>
                     <GridColumn width={[12, 8]}>
-                      {isLoading ? <Skeleton /> : movieContext?.movieDetail.Title}
+                      {isLoading ? <Skeleton /> : movieContext?.movieDetail.Genre}
                     </GridColumn>
                   </GridRow>
                 </li>
@@ -128,7 +128,7 @@ export const Detail: FC<IDetail> = () => {
                       </div>
                     </GridColumn>
                     <GridColumn width={[12, 8]}>
-                      {isLoading ? <Skeleton /> : movieContext?.movieDetail.Title}
+                      {isLoading ? <Skeleton /> : movieContext?.movieDetail.Country}
                     </GridColumn>
                   </GridRow>
                 </li>
@@ -138,7 +138,7 @@ export const Detail: FC<IDetail> = () => {
                       <div css={detailCss.detailListItemTitle}>{isLoading ? <Skeleton /> : 'Runtime'}</div>
                     </GridColumn>
                     <GridColumn width={[12, 8]}>
-                      {isLoading ? <Skeleton /> : movieContext?.movieDetail.Title}
+                      {isLoading ? <Skeleton /> : movieContext?.movieDetail.Runtime}
                     </GridColumn>
                   </GridRow>
                 </li>
@@ -148,7 +148,7 @@ export const Detail: FC<IDetail> = () => {
                       <div css={detailCss.detailListItemTitle}> {isLoading ? <Skeleton /> : 'Released'}</div>
                     </GridColumn>
                     <GridColumn width={[12, 8]}>
-                      {isLoading ? <Skeleton /> : movieContext?.movieDetail.Title}
+                      {isLoading ? <Skeleton /> : movieContext?.movieDetail.Released}
                     </GridColumn>
                   </GridRow>
                 </li>
