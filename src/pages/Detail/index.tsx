@@ -74,7 +74,7 @@ export const Detail: FC<IDetail> = () => {
 
   return (
     <div css={detailCss.detail} >
-      {isLoading ? <Skeleton height={600} /> : <img css={detailCss.detailPoster} alt={movieContext?.movieDetail.Title} src={movieContext?.movieDetail.Poster && movieContext?.movieDetail.Poster.replace('300', '2000').replace('jpg', 'webp')} />}
+      {isLoading ? <Skeleton height={600} /> : <img css={detailCss.detailPoster} alt={movieContext?.movieDetail.Title} src={movieContext?.movieDetail.Poster && movieContext?.movieDetail.Poster.replace('300', '1500').replace('jpg', 'webp')} />}
       <div css={utilsCss.container}>
         <div css={detailCss.detailItem}>
           <GridRow wrap='wrap'>

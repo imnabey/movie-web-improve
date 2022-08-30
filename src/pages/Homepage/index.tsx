@@ -63,7 +63,7 @@ export const Homepage: FC<INavbar> = () => {
   return (
     <>
       <div css={homepageCss.heroImg}>
-        {isLoading ? <Skeleton height={600} /> : <img css={homepageCss.heroImgItem} src={!isEmpty(heroImg) && heroImg.Poster.replace('300', '2000').replace('jpg', 'webp')} alt={heroImg.Title} />}
+        {isLoading ? <Skeleton height={600} /> : <img css={homepageCss.heroImgItem} src={!isEmpty(heroImg) && heroImg.Poster.replace('300', '1500').replace('jpg', 'webp')} alt={heroImg.Title} />}
         <div css={utilsCss.container} >
           <div css={homepageCss.heroImgDesc}>
 
