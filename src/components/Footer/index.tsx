@@ -1,13 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { FC } from 'react';
-import { GridColumn, GridRow } from '../../styles/grid';
 import { Facebook, Mail } from '@emotion-icons/material';
 
-import { INavbarx } from '../../../types';
 import { utilsCss } from '../../styles/utils';
 import { footerCss } from './styles';
+import { GridColumn, GridRow } from '../../styles/grid';
 
-export const Footer: FC<INavbarx> = ({ onChange }) => {
+export const Footer: FC = () => {
 
   return (
     <footer css={footerCss.footerWrapper}>

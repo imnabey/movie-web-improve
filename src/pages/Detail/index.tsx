@@ -2,16 +2,15 @@
 import { FC, useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { BookmarkBorder, Share, Bookmark } from '@emotion-icons/material';
+import Skeleton from 'react-loading-skeleton';
 
-import { IDetail } from '../../../types';
 import { MovieListCtx } from '../../contexts/MovieList';
 import { detailCss } from './styles';
 import { utilsCss } from '../../styles/utils';
 import { GridColumn, GridRow } from '../../styles/grid';
 import Avatar from '../../assets/images/avatar.webp';
-import Skeleton from 'react-loading-skeleton';
 
-export const Detail: FC<IDetail> = () => {
+export const Detail: FC = () => {
   const getIdDetail = useLocation().pathname.split('/').pop() ?? '';
   const [isLoading, setIsLoading] = useState(false);
   const [saveToggle, setSaveToggle] = useState(false);

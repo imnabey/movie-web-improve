@@ -4,8 +4,8 @@ import { isEmpty } from 'lodash';
 import { Waypoint } from 'react-waypoint';
 import { Link } from 'react-router-dom';
 import { Info } from '@emotion-icons/material';
+import Skeleton from 'react-loading-skeleton';
 
-import { INavbar } from '../../../types';
 import { MovieListCtx } from '../../contexts/MovieList';
 import UserRandomServices from '../../services/api';
 import { utilsCss } from '../../styles/utils';
@@ -13,9 +13,9 @@ import { homepageCss } from './styles';
 import LandscapeCard from '../../components/card';
 import { GridColumn, GridRow } from '../../styles/grid';
 import LandscapeCardSkeleton from '../../components/card/Skeleton';
-import Skeleton from 'react-loading-skeleton';
 
-export const Homepage: FC<INavbar> = () => {
+
+export const Homepage: FC = () => {
   const movieContext = useContext(MovieListCtx);
 
   const [pagination, setPagination] = useState({

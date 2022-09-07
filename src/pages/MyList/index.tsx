@@ -3,7 +3,6 @@ import { FC, useContext, useEffect, useState } from 'react';
 import { isEmpty } from 'lodash';
 import { Link } from 'react-router-dom';
 
-import { INavbar } from '../../../types';
 import { MovieListCtx } from '../../contexts/MovieList';
 import { utilsCss } from '../../styles/utils';
 import LandscapeCard from '../../components/card';
@@ -11,7 +10,7 @@ import { myListCss } from './styles';
 import { GridColumn, GridRow } from '../../styles/grid';
 import LandscapeCardSkeleton from '../../components/card/Skeleton';
 
-export const MyList: FC<INavbar> = () => {
+export const MyList: FC = () => {
   const movieContext = useContext(MovieListCtx);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -63,8 +62,6 @@ export const MyList: FC<INavbar> = () => {
         </GridRow>
       </div>
     </div>
-
-
   );
 };
 

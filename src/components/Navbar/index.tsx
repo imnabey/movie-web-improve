@@ -2,11 +2,10 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import { INavbarx } from '../../../types';
 import { utilsCss } from '../../styles/utils';
 import { navbarCss } from './styles';
 
-export const Navbar: FC<INavbarx> = ({ onChange }) => {
+export const Navbar: FC = () => {
   return (
     <header css={navbarCss.navbarHeader}>
       <div css={utilsCss.container}>

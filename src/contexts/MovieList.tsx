@@ -10,7 +10,6 @@ interface MovieContextInterface {
   movieDetail: { Title: string, Plot: string, Poster: string, imdbRating: string, Actors: string, imdbVotes: string, Released: string, Genre: string, Country: string, Runtime: string };
   setMovieDetail: any;
   totalPageList: string;
-
 }
 
 export const MovieListCtx = createContext<MovieContextInterface | null>(null);

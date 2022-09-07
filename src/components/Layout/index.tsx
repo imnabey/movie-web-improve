@@ -12,9 +12,9 @@ export const Layout: FC<ILayout> = ({ children }) => {
 
   return (
     <div css={layoutCss.wrapper}>
-      <NavbarComponent onChange={(e) => 'hello'} />
+      <NavbarComponent />
       <main>{children}</main>
-      <FooterComponent onChange={(e) => 'hello'} />
+      <FooterComponent />
     </div>
   );
 };
