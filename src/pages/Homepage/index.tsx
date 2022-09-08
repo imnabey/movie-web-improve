@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { FC, useContext, useEffect, useState } from 'react';
-import { isEmpty } from 'lodash';
+import { isEmpty, isEqual } from 'lodash';
 import { Waypoint } from 'react-waypoint';
 import { Link } from 'react-router-dom';
-import { Info } from '@emotion-icons/material';
+import { Info, Bookmark, BookmarkBorder } from '@emotion-icons/material';
 import Skeleton from 'react-loading-skeleton';
 
 import { MovieListCtx } from '../../contexts/MovieList';
@@ -13,14 +13,17 @@ import { homepageCss } from './styles';
 import LandscapeCard from '../../components/card';
 import { GridColumn, GridRow } from '../../styles/grid';
 import LandscapeCardSkeleton from '../../components/card/Skeleton';
+import { usePrevious } from '../../helpers';
 
 
 export const Homepage: FC = () => {
   const movieContext = useContext(MovieListCtx);
-
+  const [favorite, setFavorite] = useState<string[]>([]);
+  const [clicked, setClicked] = useState(false);
   const [pagination, setPagination] = useState({
     page: 1,
   });
+  const prevFavorite = usePrevious(favorite);
   const [isLoading, setIsLoading] = useState(false);
   const [backupMovie, setBackupMovie] = useState([] as any);
   const [heroImg, setHeroImg] = useState({} as any);
@@ -60,6 +63,30 @@ export const Homepage: FC = () => {
     setIsLoading(false);
   };
 
+  // first get
+  useEffect(() => {
+    const favoriteStorage = localStorage.getItem('imdbIdUpdate') ?? '';
+    setFavorite(favoriteStorage.split(' '));
+  }, []);
+
+  useEffect(() => {
+    if (!isEqual(prevFavorite, favorite) && clicked) {
+      localStorage.setItem('imdbIdUpdate', favorite.toString().replace(/,/g, ' ').replace(/^\s+|\s+$/gm, ''));
+    }
+  }, [favorite]);
+
+  const handleFavorite = (param: string, id: any) => {
+    setClicked(true);
+    if (param === 'add') {
+      if (!favorite.includes(id)) {
+        setFavorite(prevState => [...prevState, id]);
+      }
+    } else {
+      const filtering = favorite.filter(favoItem => favoItem !== id);
+      setFavorite(filtering);
+    }
+  };
+
   return (
     <>
       <div css={homepageCss.heroImg}>
@@ -84,7 +111,6 @@ export const Homepage: FC = () => {
               <Skeleton height={30} width={500} /> :
               <Link to={`/detail/${heroImg.imdbID as string}`} css={homepageCss.heroImgDescButton}> <Info size='30' /><div css={homepageCss.heroImgDescText}>More Info</div></Link>
             }
-
           </div>
         </div>
 
@@ -95,9 +121,17 @@ export const Homepage: FC = () => {
           {
             !isEmpty(backupMovie) && backupMovie.map((movieItem: { Title: string, imdbID: string, Poster: string, Type: string, Year: string }) => (
               <GridColumn width={[12, 2]} p={['xl', 'm']} key={movieItem.imdbID}>
-                <Link to={`/detail/${movieItem.imdbID}`}>
-                  <LandscapeCard pic={movieItem.Poster.replace('jpg', 'webp')} title={movieItem.Title} type={movieItem.Type} year={movieItem.Year} />
-                </Link>
+
+                <div css={homepageCss.wrapperCard}>
+                  {favorite.includes(movieItem.imdbID) ?
+                    <button onClick={() => handleFavorite('remove', movieItem.imdbID)} css={homepageCss.favorite}><Bookmark size="24" /></button> :
+                    <button onClick={() => handleFavorite('add', movieItem.imdbID)} css={homepageCss.favorite}><BookmarkBorder size="24" /></button>
+                  }
+                  <Link to={`/detail/${movieItem.imdbID}`} aria-hidden='true'>
+                    <LandscapeCard pic={movieItem.Poster.replace('jpg', 'webp')} title={movieItem.Title} type={movieItem.Type} year={movieItem.Year} />
+                  </Link>
+                </div>
+
               </GridColumn>
             ))
           }
@@ -105,8 +139,7 @@ export const Homepage: FC = () => {
           {!isEmpty(backupMovie) && pagination.page < Number(movieContext?.totalPageList) ? (
             <Waypoint onEnter={handleLoadMore} />
           ) : (
-            <></>
-          )}
+              <></>)}
 
           {isLoading && (
             <LandscapeCardSkeleton cards={12} />
@@ -114,8 +147,6 @@ export const Homepage: FC = () => {
         </GridRow>
       </div>
     </>
-
-
   );
 };
 

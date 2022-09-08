@@ -8,7 +8,9 @@ import { landCardCss } from './styles';
 export const LandscapeCard: FC<ILandCard> = ({ pic, title, type, year }) => {
   return (
     <div css={landCardCss.wrapper}>
-      <img css={landCardCss.cardImg} src={pic.replace('300', '400')} alt={title} />
+      <div css={landCardCss.wrapperImg}>
+        <img css={landCardCss.cardImg} src={pic.replace('300', '400')} alt={title} />
+      </div>
 
       <div className="card-overlay">
         <div css={landCardCss.overlayTitle}>

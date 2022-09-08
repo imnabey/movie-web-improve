@@ -1,13 +1,15 @@
 import { css } from '@emotion/react';
 
 export const landCardCss = {
+  wrapperImg: css`
+    position: relative;
+  `,
   wrapper: css`
     height: 300px;
     position: relative;
 
     .card-overlay{
       display: none;
-
     }
     
     &:hover{
@@ -44,6 +46,4 @@ export const landCardCss = {
 
   wrapperSkeleton: css`
     padding: 15px;`,
-
-
 };

@@ -61,6 +61,20 @@ export const homepageCss = {
     font-size: 20px;
   }`,
 
+  wrapperCard: css`
+  position: relative;
+  `,
+
+  favorite: css`
+    position: absolute;
+    right: 10px;
+    background: transparent;
+    color: white;
+    border: none;
+    z-index: 10000;
+    top: 10px;
+  `,
+
   heroImgItem: css`
   height: 400px;
   width: 100%;
