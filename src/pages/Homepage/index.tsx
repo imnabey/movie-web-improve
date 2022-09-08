@@ -127,7 +127,7 @@ export const Homepage: FC = () => {
                     <button onClick={() => handleFavorite('remove', movieItem.imdbID)} css={homepageCss.favorite}><Bookmark size="24" /></button> :
                     <button onClick={() => handleFavorite('add', movieItem.imdbID)} css={homepageCss.favorite}><BookmarkBorder size="24" /></button>
                   }
-                  <Link to={`/detail/${movieItem.imdbID}`} aria-hidden='true'>
+                  <Link to={`/detail/${movieItem.imdbID}`}>
                     <LandscapeCard pic={movieItem.Poster.replace('jpg', 'webp')} title={movieItem.Title} type={movieItem.Type} year={movieItem.Year} />
                   </Link>
                 </div>
